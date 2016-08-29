@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Moodify</title>
+        <title>VerseAid</title>
         <!--Boostrap's CSS-->
         <link rel="stylesheet" type="text/css" href="./node_modules/bootstrap/dist/css/bootstrap.min.css">
         <!--Custom CSS-->
@@ -9,29 +9,22 @@
     </head>
     <body>
         <div class="container" id="page-container">
-            <h1 id="app-name">
-                <span class="glyphicon glyphicon-headphones"></span> moodify
-            </h1>
-            <!-- NB: glyphicon halflings are generally not free, but the developer made them free in bootstrap -->
-
-            <h2 id="page-header">
-                Get song recommendations based on your mood.
-            </h2>
+            <div class="app-logo"><img src="logo.png"></div>
+            <h1 id="app-name">VerseAid</h1>
+            <h3 id="page-header">
+                Jesus answered, "It is written: 'Man shall not live on bread alone, but on every word that comes from the mouth of God.'" - Matthew 4:4 (NIV)
+            </h3><br>
+            <h5 id="app-desc">
+                Get a Bible verse based on how you feel. 
+            </h5>
             <div class="btn-wrapper">
                 <label class="btn btn-info" for="my-file-selector">
                     <input id="my-file-selector" type="file">
-                    Upload a picture of you
+                    Upload a photo
                 </label>
                 <button type="button" class="btn btn-info" id="refreshbtn">Another song please</button>
             </div>
         </div>
-        <!-- 
-            NB: You generally do not want to publically expose the server structure (eg. ./node_modules/...)
-            will sort that in later bootcamps with task-runners and the like.
-            For now this is just a demonstration.
-
-            Alternatively can use CDNs for bootstrap/jquery
-        -->
 
         <!--jQuery Script-->
         <script src="./node_modules/jquery/dist/jquery.min.js"></script>
