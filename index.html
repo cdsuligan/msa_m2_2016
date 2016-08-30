@@ -8,29 +8,47 @@
         <link rel="stylesheet" type="text/css" href="./css/style.css">
     </head>
     <body>
+        <div id="fb-root"></div>
+        <script>(function(d, s, id) {
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) return;
+        js = d.createElement(s); js.id = id;
+        js.src = "//connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v2.7";
+        fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));</script>
+
+        <div class="navbar navbar-default navbar-fixed-top">
+            <div class="container" id="navbar-container">
+                <div class="fb-like" data-href="https://www.facebook.com/VerseAid-157857031321198/" data-layout="standard" data-action="like" data-size="large" data-show-faces="false" data-share="true"></div>
+            </div>
+        </div>
         <div class="container" id="page-container">
             <div class="app-logo"><img src="logo.png"></div>
             <h1 id="app-name">VerseAid</h1>
-            <h3 id="page-header">
-                Jesus answered, "It is written: 'Man shall not live on bread alone, but on every word that comes from the mouth of God.'" - Matthew 4:4 (NIV)
-            </h3><br>
-            <h5 id="app-desc">
-                Get a Bible verse based on how you feel. 
-            </h5>
+
+            <h2 id="page-header">Caption your photo with a corresponding verse in 3 easy steps:</h2>
+            <li> Upload a photo.</li>
+            <li> Choose a verse.</li>
+            <li> Share the captioned photo with famiy and friends.</li>
+
             <div class="btn-wrapper">
                 <label class="btn btn-info" for="my-file-selector">
                     <input id="my-file-selector" type="file">
                     Upload a photo
                 </label>
-                <button type="button" class="btn btn-info" id="refreshbtn">Another song please</button>
+                <button type="button" class="btn btn-info" id="refreshbtn">Another verse please</button>
             </div>
         </div>
-
+        <!-- Auto-hiding navbar script-->
+        <script src="./bootstrap-autohidingnavbar-master/bootstrap-autohidingnavbar-master/src/jquery.bootstrap-autohidingnavbar.min.js"></script>
         <!--jQuery Script-->
         <script src="./node_modules/jquery/dist/jquery.min.js"></script>
         <!--Bootstrap Script-->
         <script src="./node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
         <!--Custom Script-->
-        <script src="./js/basic.js"></script>
+        <script src="./js/main.ts"></script>
+
+        <script>$("div.navbar-fixed-top").autoHidingNavbar();</script>
+    
     </body>
 </html>

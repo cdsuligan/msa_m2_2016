@@ -5,11 +5,25 @@ html {
 body {
     color: #7c7b66;
     background-color: transparent;
-    font-family: Georgia, 'Times New Roman', Times, serif
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif
+}
+
+body .navbar{
+    background-color: #7c7b66;
+}
+
+.container li{
+    font-size: 20px;
+}
+
+body #navbar-container{
+    background-color: transparent;
+    padding: 20px 500px 0 0;
 }
 
 h1#app-name {
-    font-size:84px;
+    font-size:80px;
+    font-family: Georgia, 'Times New Roman', Times, serif;
 }
 
 button#refreshbtn {
