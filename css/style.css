@@ -37,7 +37,7 @@
     color: #1abc9c !important;
 }
 
-.navbar-brand{
+.navbar-header #logo-img{
     height: 350%;
     width: 40%;
     margin-bottom: 20px;
