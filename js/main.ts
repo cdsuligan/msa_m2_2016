@@ -3,10 +3,13 @@ var currentMood: Mood;
 // Get elements from DOM
 var pageheader = $("#page-header")[0]; //note the [0], jQuery returns an object, so to get the html DOM object we need the first item in the object
 var pagecontainer = $("#page-container")[0]; 
+var bg2header = $("#bg2-header")[0];
+var bg2 = $(".bg-2")[0];
+var picture;
 
 // The html DOM object has been casted to a input element (as defined in index.html) as later we want to get specific fields that are only avaliable from an input element object
 var imgSelector : HTMLInputElement = <HTMLInputElement> $("#my-file-selector")[0]; 
-var refreshbtn = $("#refreshbtn")[0]; //You dont have to use [0], however this just means whenever you use the object you need to refer to it with [0].
+//var refreshbtn = $("#refreshbtn")[0]; //You dont have to use [0], however this just means whenever you use the object you need to refer to it with [0].
 
 // Register button listeners
 imgSelector.addEventListener("change", function () { // file has been picked
@@ -17,15 +20,8 @@ imgSelector.addEventListener("change", function () { // file has been picked
             // Find out most dominant emotion
             currentMood = getCurrMood(emotionScores); //this is where we send out scores to find out the predominant emotion
             changeUI(); //time to update the web app, with their emotion!
-
-            //Done!!
         });
     });
-});
-
-refreshbtn.addEventListener("click", function () {
-    // TODO: Load random song based on mood
-    alert("You clicked the button"); 
 });
 
 function processImage(callback) : void {
@@ -34,7 +30,7 @@ function processImage(callback) : void {
     if (file) {
         reader.readAsDataURL(file); //used to read the contents of the file
     } else {
-        console.log("Invalid file");
+        console.log("Invalid file.");
     }
     reader.onloadend = function () { 
         //After loading the file it checks if extension is jpg or png and if it isnt it lets the user know.
@@ -42,27 +38,25 @@ function processImage(callback) : void {
             pageheader.innerHTML = "Please upload an image file (jpg or png).";
         } else {
             //if file is photo it sends the file reference back up
+            picture = reader.result;
             callback(file);
         }
     }
 }
 
 function changeUI() : void {
-    //Show detected mood
-    pageheader.innerHTML = "Your mood is: " + currentMood.name;  //Remember currentMood is a Mood object, which has a name and emoji linked to it. 
-    //Show mood emoji
-    var img : HTMLImageElement = <HTMLImageElement>  $("#selected-img")[0];//getting a predefined area on our webpage to show the emoji
-    //img.src = currentMood.emoji; //link that area to the emoji of our currentMood.
-    img.style.display = "block"; //just some formating of the emoji's location
+    //Updating first container
+    pageheader.innerHTML = "Please see below.";
 
-    //Display song refresh button
-    refreshbtn.style.display = "inline";
-    //Remove offset at the top
+    //Updating second container
+    var img : HTMLImageElement = <HTMLImageElement>  $("#new-photo-container")[0];
+    img.src = picture;
+    img.style.height = "220px";
+    img.style.width = "300px";
+    bg2header.innerHTML = currentMood.verseid;
     pagecontainer.style.marginTop = "20px";
 }
 
-// Refer to http://stackoverflow.com/questions/35565732/implementing-microsofts-project-oxford-emotion-api-and-file-upload
-// and code snippet in emotion API documentation
 function sendEmotionRequest(file, callback) : void {
     $.ajax({
         url: "https://api.projectoxford.ai/emotion/v1.0/recognize",
@@ -81,11 +75,11 @@ function sendEmotionRequest(file, callback) : void {
                 var scores = data[0].scores;
                 callback(scores);
             } else {
-                pageheader.innerHTML = "Hmm, we can't detect a human face in that photo. Try another?";
+                pageheader.innerHTML = "Cannot detect a human face. Please try another photo. ";
             }
         })
         .fail(function (error) {
-            pageheader.innerHTML = "Sorry, something went wrong. :( Try again in a bit?";
+            pageheader.innerHTML = "Sorry, something went wrong. Please try again later.";
             console.log(error.getAllResponseHeaders());
         });
 }
@@ -95,16 +89,18 @@ function sendEmotionRequest(file, callback) : void {
 //A Mood class which has the mood as a string and its corresponding emoji
 class Mood {
     name: string;
-    constructor(public mood) {
+    verseid: string;
+    constructor(public mood, public verse) {
         this.name = mood;
+        this.verseid = verse;
     }
 }
 
-var happy : Mood = new Mood("happy");
-var sad : Mood  = new Mood("sad");
-var scared : Mood = new Mood("scared")
-var angry : Mood = new Mood("angry");
-var neutral : Mood  = new Mood("neutral");
+var happy : Mood = new Mood("happy", "The Mighty One has done great things for me - holy is His name. - Luke 1:49");
+var sad : Mood  = new Mood("sad", "But now, Lord, what do I look for? My hope is in You. - Psalm 39:7");
+var scared : Mood = new Mood("scared", "God is our regure and strength. - Psalm 46:1");
+var angry : Mood = new Mood("angry", "A gentle answer turns away wrath, but harsh words stir up anger. - Proverbs 15:1");
+var neutral : Mood  = new Mood("neutral", "No matter what happens, always be thankful, for this is God's will for you who belong to Christ Jesus. - 1 Thes 5:18");
 
 // any type as the scores values is from the project oxford api request (so we dont know the type)
 function getCurrMood(scores : any) : Mood {
