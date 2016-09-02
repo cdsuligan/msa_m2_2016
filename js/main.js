@@ -1,5 +1,3 @@
-'use strict';
-/// <reference path="typings/tsd.d.ts" />
 var currentMood;
 // Get elements from DOM
 var pageheader = $("#page-header")[0]; //note the [0], jQuery returns an object, so to get the html DOM object we need the first item in the object
@@ -9,13 +7,14 @@ var imgSelector = $("#my-file-selector")[0];
 var refreshbtn = $("#refreshbtn")[0]; //You dont have to use [0], however this just means whenever you use the object you need to refer to it with [0].
 // Register button listeners
 imgSelector.addEventListener("change", function () {
-    pageheader.innerHTML = "Analysing mood...";
+    pageheader.innerHTML = "Generating a verse...";
     processImage(function (file) {
         // Get emotions based on image
         sendEmotionRequest(file, function (emotionScores) {
             // Find out most dominant emotion
             currentMood = getCurrMood(emotionScores); //this is where we send out scores to find out the predominant emotion
             changeUI(); //time to update the web app, with their emotion!
+            //Done!!
         });
     });
 });
@@ -46,6 +45,10 @@ function processImage(callback) {
 function changeUI() {
     //Show detected mood
     pageheader.innerHTML = "Your mood is: " + currentMood.name; //Remember currentMood is a Mood object, which has a name and emoji linked to it. 
+    //Show mood emoji
+    var img = $("#selected-img")[0]; //getting a predefined area on our webpage to show the emoji
+    //img.src = currentMood.emoji; //link that area to the emoji of our currentMood.
+    img.style.display = "block"; //just some formating of the emoji's location
     //Display song refresh button
     refreshbtn.style.display = "inline";
     //Remove offset at the top
@@ -72,16 +75,16 @@ function sendEmotionRequest(file, callback) {
             callback(scores);
         }
         else {
-            pageheader.innerHTML = "Can't detect a human face. Please try another photo.";
+            pageheader.innerHTML = "Hmm, we can't detect a human face in that photo. Try another?";
         }
     })
         .fail(function (error) {
-        pageheader.innerHTML = "Sorry, something went wrong. Please try again later.";
+        pageheader.innerHTML = "Sorry, something went wrong. :( Try again in a bit?";
         console.log(error.getAllResponseHeaders());
     });
 }
 // Section of code that handles the mood
-//A Mood class which has the mood as a string
+//A Mood class which has the mood as a string and its corresponding emoji
 var Mood = (function () {
     function Mood(mood) {
         this.mood = mood;
@@ -96,34 +99,21 @@ var angry = new Mood("angry");
 var neutral = new Mood("neutral");
 // any type as the scores values is from the project oxford api request (so we dont know the type)
 function getCurrMood(scores) {
-    var currentMood;
-    var currentMax = 0;
-    var scoreArray = new Array();
-    scoreArray.push(scores.happiness);
-    scoreArray.push(scores.sadness);
-    scoreArray.push(scores.fear);
-    scoreArray.push(scores.angry);
-    scoreArray.push(scores.neutral);
-    var arrayLength = scoreArray.length;
-    //Analyses maximum mood score
-    for (var i = 0; i < arrayLength; i++) {
-        if (scores[i] > currentMax) {
-            if (i == 0) {
-                currentMood = happy;
-            }
-            else if (i == 1) {
-                currentMood = sad;
-            }
-            else if (i == 2) {
-                currentMood = scared;
-            }
-            else if (i == 3) {
-                currentMood = angry;
-            }
-            else {
-                currentMood = neutral;
-            }
-        }
+    // In a practical sense, you would find the max emotion out of all the emotions provided. However we'll do the below just for simplicity's sake :P
+    if (scores.happiness > 0.4) {
+        currentMood = happy;
+    }
+    else if (scores.sadness > 0.4) {
+        currentMood = sad;
+    }
+    else if (scores.fear > 0.4) {
+        currentMood = scared;
+    }
+    else if (scores.anger > 0.4) {
+        currentMood = angry;
+    }
+    else {
+        currentMood = neutral;
     }
     return currentMood;
 }

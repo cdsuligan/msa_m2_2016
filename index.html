@@ -1,54 +1,98 @@
 <!DOCTYPE html>
+<html lang="en">
 <html>
     <head>
         <title>VerseAid</title>
-        <!--Boostrap's CSS-->
+        <!--Favicon-->
+        <link rel="icon" href="logo.png">
+        <!--Bootstrap-->
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+        <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
         <link rel="stylesheet" type="text/css" href="./node_modules/bootstrap/dist/css/bootstrap.min.css">
+        <!--Font Awesome-->
+        <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css">
+        <!--Facebook-->
+        <meta property="og:url"           content="http://verseaid.azurewebsites.net"/>
+        <meta property="og:type"          content="website" />
+        <meta property="og:title"         content="VerseAid" />
+        <meta property="og:description"   content="Blessing your photos with verses." />
+        <meta property="og:image"         content="http://picquo.azurewebsites.net/logo.png" />
+
+        <!-- Pretty social's CSS-->
+        <link href="http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
+
+        <!--Boostrap's CSS-->
+        <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
         <!--Custom CSS-->
         <link rel="stylesheet" type="text/css" href="./css/style.css">
     </head>
     <body>
-        <div id="fb-root"></div>
-        <script>(function(d, s, id) {
-        var js, fjs = d.getElementsByTagName(s)[0];
-        if (d.getElementById(id)) return;
-        js = d.createElement(s); js.id = id;
-        js.src = "//connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v2.7";
-        fjs.parentNode.insertBefore(js, fjs);
-        }(document, 'script', 'facebook-jssdk'));</script>
+        <script>FB.ui({
+        method: 'share',
+        href: 'https:verseaid.azurewebsites.net',
+        }, function(response){});</script>
+        <nav class="navbar navbar-default">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span> 
+                    </button>
+                    <a class="navbar-brand" href="#"><img src="logo.png" id="logo-img" alt="VerseAid logo"></a>
+                </div>
+                <div class="collapse navbar-collapse" id="myNavbar">
 
-        <div class="navbar navbar-default navbar-fixed-top">
-            <div class="container" id="navbar-container">
-                <div class="fb-like" data-href="https://www.facebook.com/VerseAid-157857031321198/" data-layout="standard" data-action="like" data-size="large" data-show-faces="false" data-share="true"></div>
+                    <ul class="nav navbar-nav navbar-right">
+                        <!-- AddToAny BEGIN -->
+                        <div class="a2a_kit a2a_kit_size_32 a2a_default_style">
+                        <a class="a2a_button_facebook fb-share-button" href="http://www.your-domain.com/your-page.html"></a>
+                        <a class="a2a_button_twitter" href="http://twitter.com/share?url=http://verseaid.azurewebsites.net"></a>
+                        <a class="a2a_button_google_plus" href="http://twitter.com/share?url=http://verseaid.azurewebsites.net"></a>
+                        </div>
+                        <script async src="https://static.addtoany.com/menu/page.js"></script>
+                        <!-- AddToAny END -->
+                    </ul>
+                </div>
             </div>
-        </div>
-        <div class="container" id="page-container">
-            <div class="app-logo"><img src="logo.png"></div>
-            <h1 id="app-name">VerseAid</h1>
-
-            <h2 id="page-header">Caption your photo with a corresponding verse in 3 easy steps:</h2>
-            <li> Upload a photo.</li>
-            <li> Choose a verse.</li>
-            <li> Share the captioned photo with famiy and friends.</li>
-
+        </nav>
+        <div class="container-fluid bg-1 text-center">
+            <h3><b>VerseAid</h3>
+            <img src="bible.jpg" class="img-circle" id="bible-img" alt="Bible image">
+            <h3 id="page-header"><i>Blessing your photos with verses.</h3>
             <div class="btn-wrapper">
                 <label class="btn btn-info" for="my-file-selector">
-                    <input id="my-file-selector" type="file">
-                    Upload a photo
+                    <input id="my-file-selector" type="file" style="display:none;">
+                    <span class="glyphicon glyphicon-camera"></span> Upload a photo
                 </label>
-                <button type="button" class="btn btn-info" id="refreshbtn">Another verse please</button>
+                <button type="button" class="btn btn-info" id="refreshbtn">Another song please</button>
             </div>
         </div>
-        <!-- Auto-hiding navbar script-->
-        <script src="./bootstrap-autohidingnavbar-master/bootstrap-autohidingnavbar-master/src/jquery.bootstrap-autohidingnavbar.min.js"></script>
+
+        <div class="container-fluid bg-2 text-center">
+            <h3>What Am I?</h3>
+            <p>Lorem ipsum..</p>
+        </div>
+
+        <div class="container-fluid bg-3 text-center">
+            <h3>What Am I?</h3>
+            <p>Lorem ipsum..</p>
+            <a href="#" class="btn btn-default btn-lg"><span class="glyphicon glyphicon-search"></span> Search</a>
+        </div>
+
+        <footer class="container-fluid bg-4 text-center">
+            <p>Bootstrap Theme Made By <a href="http://www.w3schools.com">www.w3schools.com</a></p> 
+
         <!--jQuery Script-->
         <script src="./node_modules/jquery/dist/jquery.min.js"></script>
         <!--Bootstrap Script-->
         <script src="./node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
         <!--Custom Script-->
-        <script src="./js/main.ts"></script>
+        <script src="./js/main.js"></script>
+        <!--Loading Overlay jQuery Plugin Script-->
+        <script src="./loadingOverlayPlugin/src/loadingoverlay.min.js"></script>
 
-        <script>$("div.navbar-fixed-top").autoHidingNavbar();</script>
-    
     </body>
 </html>

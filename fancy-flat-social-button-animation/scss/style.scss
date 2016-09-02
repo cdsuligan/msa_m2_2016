@@ -1,0 +1,75 @@
+@import "compass/css3";
+
+@import url(http://fonts.googleapis.com/css?family=Raleway+Dots);
+@import url(http://fonts.googleapis.com/css?family=Advent+Pro:400,200,700);
+@import url(http://weloveiconfonts.com/api/?family=entypo);
+
+/* entypo */
+[class*="entypo-"]:before {
+  font-family: 'entypo', sans-serif;
+}
+
+$green: #74d4b3;
+$red: #ef8974; 
+$black: #2C2E31;
+$gray: #5F6164;
+$light_gray: #ccc;
+$white: #fff;
+
+html,body {
+  margin: 0;
+  background-color: $green;
+}
+
+section {
+
+	#services {
+		text-align: center;
+    transform: translatez(0);
+    
+		h2 {
+			margin: 80px 0px 40px;
+			color: $white;
+			font-size: 2.4em;
+			font-family: 'Raleway Dots', sans-serif;
+			text-transform: uppercase;
+			text-align: center;
+		}
+
+		li {
+			width: 120px;
+			height: 140px;
+			display: inline-block;
+			margin: 20px;
+			list-style: none;
+
+			div {
+				width: 120px;
+				height: 120px;
+				color: $green;
+				font-size: 3.4em;
+				text-align: center;
+				line-height: 120px;
+				background-color: $white;
+				transition: all 0.5s ease;
+
+				&:hover {
+					transform: rotate(360deg);
+					border-radius: 100px;
+				}
+			}
+
+			span {
+				width: 120px;
+				height: 20px;
+				display: block;
+				padding: 15px 0px;
+				color: $white;
+				font-family: 'Advent Pro', sans-serif;
+				text-transform: uppercase;
+				font-size: 1.2em;
+				text-align: center;
+			}
+		}
+	}
+}
